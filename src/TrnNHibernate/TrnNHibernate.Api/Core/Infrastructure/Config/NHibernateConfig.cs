@@ -5,6 +5,7 @@ using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TrnNHibernate.Api.Core.Infrastructure.Maps;
 
 namespace TrnNHibernate.Core.Infrastructure.Config
 {
@@ -19,8 +20,8 @@ namespace TrnNHibernate.Core.Infrastructure.Config
             interceptors = new List<IInterceptor>();
 
             _fluentConfiguration = Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(configuration.GetConnectionString("Default")));
-                //TODO:Adicionar mapeamentos  .Mappings(x => x.FluentMappings.AddFromAssemblyOf<UsuarioMap>());
+                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(configuration.GetConnectionString("Default")))
+                .Mappings(x => x.FluentMappings.Add<ClienteMap>());
         }
 
         public ISessionFactory BuildSessionFactory()
